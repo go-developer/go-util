@@ -50,6 +50,20 @@ func (f *fileUtil) GetFileInfo(filePath string) (os.FileInfo, error) {
 }
 
 /**
+ * 获取一个文件路径是否为目录
+ * @param string filePath 文件路径
+ * @return 是否是目录
+ * @return error 判断是否为目录的异常信息
+ */
+func (f *fileUtil) IsDir(filePath string) (bool, error) {
+	fileInfo, err := f.GetFileInfo(filePath)
+	if nil != err {
+		return false, err
+	}
+	return fileInfo.IsDir(), nil
+}
+
+/**
  * 递归获取目录下文件,因为是递归实现,请慎重评估depth深度
  * @param string dirPath 要查询的目录
  * @param int depth 递归查询的目录深度
