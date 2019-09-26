@@ -14,3 +14,6 @@
 > GetFileInfo 获取指定文件的信息
 > IsDir 判断给定文件是否为目录
 > GetDirFileList 递归获取一个目录下所有文件
+
+## type.go : 定义文件类型转换方法,摘自 database/sql 包,将内部不可访问方法，可以访问
+> ConvertAssign 数据类型转换
