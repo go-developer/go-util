@@ -38,7 +38,7 @@ func (s *stringUtil) GenRandomString(source string, length uint) string {
 	strByte := []byte(source)
 	var genStrByte = make([]byte, 0)
 	r := rand.New(rand.NewSource(time.Now().UnixNano()))
-	for i := 0; i < l; i++ {
+	for i := 0; i < int(length); i++ {
 		genStrByte = append(genStrByte, strByte[r.Intn(len(strByte))])
 	}
 	return string(genStrByte)
@@ -54,8 +54,22 @@ func (s *stringUtil) ToHump(str string, split string) string {
 	strArr := strings.Split(str, split)
 	out := strArr[0]
 	for i := 1; i < len(strArr); i++ {
-		out = out + Capitalize(strArr[i])
+		out = out + s.Capitalize(strArr[i])
 	}
 	return out
+}
+
+/**
+ * 实现首字母大写
+ * @param string str 要处理的字符串
+ * @return string 首字母大写后的字符串
+ * @author zhangdeman001@ke.com
+ */
+func (s *stringUtil) Capitalize(str string) string {
+	if len(str) == 0 {
+		return str
+	}
+	strArr := strings.Split(str, "")
+	return strings.ToUpper(strArr[0]) + strings.Join(strArr[1:len(strArr)], "")
 }
 
