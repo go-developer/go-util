@@ -21,6 +21,5 @@ type yamlUtil struct {
  * @author go_developer@163.com
  */
 func (y *yamlUtil) ParseYamlFile(yamlFilePath string, parseResult interface{}) error {
-	yaml.Parse()
 	return nil
 }
