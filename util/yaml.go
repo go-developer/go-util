@@ -1,7 +1,7 @@
 package util
 
 import (
-	"github.com/go-yaml/yaml"
+	"yaml"
 )
 
 var YamlUtil *yamlUtil
@@ -21,5 +21,12 @@ type yamlUtil struct {
  * @author go_developer@163.com
  */
 func (y *yamlUtil) ParseYamlFile(yamlFilePath string, parseResult interface{}) error {
-	return nil
+	var (
+		err error
+		ymlByte []byte
+	)
+	if ymlByte, err = FileUtil.ReadFile(yamlFilePath); nil != err {
+		return err
+	}
+	return yaml.Unmarshal(ymlByte, parseResult)
 }
