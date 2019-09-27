@@ -17,11 +17,3 @@
 # Dependency directories (remove the comment below to include it)
 # vendor/
 
-将删除 .gitignore
-将删除 .idea/.gitignore
-将删除 .idea/dictionaries/
-将删除 .idea/misc.xml
-将删除 .idea/modules.xml
-将删除 .idea/tool.iml
-将删除 .idea/vcs.xml
-将删除 util/
