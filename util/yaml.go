@@ -1,7 +1,7 @@
 package util
 
 import (
-	"yaml"
+	"go-util/yaml"
 )
 
 var YamlUtil *yamlUtil
