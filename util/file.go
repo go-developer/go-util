@@ -127,3 +127,27 @@ func (f *fileUtil) GetDirFileList(dirPath string, depth uint) ([]DirFile, error)
 
 	return dirFileList, nil
 }
+
+/**
+ * 读取文件的内容
+ * @param string filePath 文件路径
+ * @return []byte 文件内容
+ * @return error 读取文件的错误信息
+ * @author go_developer@163.com
+ */
+func (f *fileUtil) ReadFile(filePath string) ([]byte, error) {
+	var (
+		err error
+		fileHandle *os.File
+	)
+	if _, err = f.GetFileInfo(filePath); nil != err {
+		return nil, err
+	}
+
+	if fileHandle, err = os.Open(filePath); nil != err {
+		return nil, errors.New("文件打开失败 ==> "+err.Error())
+	}
+
+	defer fileHandle.Close()
+	return ioutil.ReadAll(fileHandle)
+}
