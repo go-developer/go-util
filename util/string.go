@@ -70,6 +70,6 @@ func (s *stringUtil) Capitalize(str string) string {
 		return str
 	}
 	strArr := strings.Split(str, "")
-	return strings.ToUpper(strArr[0]) + strings.Join(strArr[1:len(strArr)], "")
+	return strings.ToUpper(strArr[0]) + strings.Join(strArr[1:], "")
 }
 
