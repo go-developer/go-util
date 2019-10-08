@@ -6,7 +6,7 @@ import (
 )
 
 /**
- * 测试字符串按照指定分隔符转化为小驼峰的性能
+ * 测试字符串按照指定分隔符转化为小驼峰的功能测试
  * @author go_developer@163.com
  */
 func TestToHump(t *testing.T) {
@@ -15,16 +15,17 @@ func TestToHump(t *testing.T) {
 		Flag string
 		Out  string
 	}{
-		{"zhangdeman", "_", "zhangdeman"},     //不存在指定分隔符的case
-		{"_zhangdeman", "_", "Zhangdeman"},    //以分隔符开头的字符串
-		{"____zhangdeman", "_", "Zhangdeman"}, //开头连续若干个分隔符
-		{"zhang_de_man", "_", "zhangDeMan"},   //常见的分隔方式
+		{"zhangdeman", "_", "zhangdeman"},           //不存在指定分隔符的case
+		{"_zhangdeman", "_", "Zhangdeman"},          //以分隔符开头的字符串
+		{"____zhangdeman", "_", "Zhangdeman"},       //开头连续若干个分隔符
+		{"zhang_de_man", "_", "zhangDeMan"},         //常见的分隔方式
+		{"zhang___de___man", "_", "zhangDeMan"},     //中间连续若干个分隔符的case
+		{"zhang_ __de__ _man", "_", "zhang De Man"}, //分隔符之间只包含空格的case
 	}
 	for _, testCase := range testTable {
 		result := util.StringUtil.ToHump(testCase.In, testCase.Flag)
 		if testCase.Out != result {
 			t.Fatalf("toHump方法执行异常, in = %s, flag = %s, except = %s, real = %s", testCase.In, testCase.Flag, testCase.Out, result)
 		}
-
 	}
 }
