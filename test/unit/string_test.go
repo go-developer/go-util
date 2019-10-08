@@ -29,3 +29,25 @@ func TestToHump(t *testing.T) {
 		}
 	}
 }
+
+/**
+ * 字符串首字母大写功能测试
+ * @author go_developer@163.com
+ */
+func TestCapitalize(t *testing.T) {
+	var testTable = []struct {
+		In  string
+		Out string
+	}{
+		{"zhangdeman", "Zhangdeman"},   //普通字符串
+		{"$zhangdeman", "$zhangdeman"}, //特殊字符开头的开头的字符串
+		{" zhangdeman", " zhangdeman"}, //空格开头的字符串
+		{"", ""},                       //空字符串
+	}
+	for _, testCase := range testTable {
+		result := util.StringUtil.Capitalize(testCase.In)
+		if testCase.Out != result {
+			t.Fatalf("Capitalize方法执行异常, in = %s, except = %s, real = %s", testCase.In, testCase.Out, result)
+		}
+	}
+}
