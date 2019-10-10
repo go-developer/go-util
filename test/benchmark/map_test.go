@@ -1,4 +1,4 @@
-package unit
+package benchmark
 
 import (
 	"go-util/util"
@@ -6,10 +6,12 @@ import (
 )
 
 /**
- * 测试map转结构体的功能
+ * map转struct的基准性能测试
  * @author go_developer@163.com
  */
-func TestToStruct(t *testing.T)  {
+func BenchmarkToStruct(b *testing.B)  {
+	b.StopTimer() //调用该函数停止压力测试的时间计数
+	b.StartTimer() //重新开始时间
 	mapData := map[string]string{
 		"name": "zhangdeman",
 		"age": "23",
@@ -20,8 +22,10 @@ func TestToStruct(t *testing.T)  {
 		Age string `json:"age"`
 		Height string `json:"height"`
 	}
-	var r  result
-	if err := util.MapUtil.ToStruct(mapData, &r); nil != err {
-		t.Fatalf("toStruct测试未通过, 错误信息 [ %s ]", err.Error())
+
+	for i := 0; i < b.N; i++ {
+		var r  result
+		util.MapUtil.ToStruct(mapData, &r)
 	}
+
 }
