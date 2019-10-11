@@ -22,7 +22,7 @@ func (s *String) GetValue() string {
  * @author go_developer@163.com
  */
 func (s *String) Append(appendStr string) *String {
-	var str = String(s.GetVal() + appendStr)
+	var str = String(s.GetValue() + appendStr)
 	*s = str
 	return s
 }
@@ -32,5 +32,13 @@ func (s *String) Append(appendStr string) *String {
  * @author go_developer@163.com
  */
 func (s *String) Length() int {
-	return len(s.GetVal())
+	return len(s.GetValue())
+}
+
+/**
+ * 判断字符串是否相等
+ * @author go_developer@163.com
+ */
+func (s *String) Equal(str string) bool {
+	return s.GetValue() == str
 }
