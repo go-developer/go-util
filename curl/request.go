@@ -170,7 +170,7 @@ func (req *Request) Delete() (*Response, error) {
 //
 // Date : 2020/06/26 01:01:28
 func (req *Request) Put() (*Response, error) {
-	return req.Send(req.Url, http.MethodPut)
+	return req.Send(req.URL, http.MethodPut)
 }
 
 // Post 发起post请求
