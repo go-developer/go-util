@@ -1,3 +1,12 @@
+// Package util ...
+//
+// File : time.go
+//
+// Decs : 时间操作工具集
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/06/26 01:35:42
 package util
 
 import (
@@ -5,43 +14,44 @@ import (
 	"time"
 )
 
+// TimeUtil 实践操作工具集实例
+//
+// Author : go_developer@163.com<张德满>
 var TimeUtil *timeUtil
 
 func init() {
 	TimeUtil = &timeUtil{}
 }
 
-/**
- * 时间工具助手
- * @author go_developer@163.com
- */
+// timeUtil 时间工具助手
+//
+// Author : go_developer@163.com<张德满>
 type timeUtil struct {
 }
 
-/**
- * 获取当前时间戳的格式化时间
- * @author go_developer@163.com
- */
+// GetCurrentFormatTime 获取当前时间戳的格式化时间
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/06/26 01:32:47
 func (t *timeUtil) GetCurrentFormatTime() string {
 	return t.GetFormatTime(time.Now().Unix())
 }
 
-/**
- * 获取时间戳的格式化时间
- * @param int64 second 要格式化的时间戳，单位秒
- * @author go_developer@163.com
- */
+// GetFormatTime 获取时间戳的格式化时间
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/06/26 01:33:03
 func (t *timeUtil) GetFormatTime(second int64) string {
 	return time.Unix(second, 0).Format("2006-01-02 15:04:05")
 }
 
-/**
- * 根据格式化的时间获取对应的时间戳
- * @param string formatTime 格式化的时间，eg: 2006-01-02 15:04:05
- * @return int64 unixTime 转化后的时间戳，若转化过程中出现异常,辞职为0
- * @return error err 时间戳转化过程中的异常信息,存在两种可能: 1. 获取本地时区异常 2. 格式化时间戳解析异常
- * @author go_developer@163.com<张德满>
- */
+// GetUnixTime 根据格式化的时间获取对应的时间戳
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/06/26 01:34:09
 func (t *timeUtil) GetUnixTime(formatTime string) (unixTime int64, err error) {
 
 	var (

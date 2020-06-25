@@ -7,16 +7,18 @@ import (
 	"strings"
 )
 
+// FileUtil 文件操作工具集
+//
+// Author : go_developer@163.com<张德满>
 var FileUtil *fileUtil
 
 func init() {
 	FileUtil = &fileUtil{}
 }
 
-/**
- * 获取文件夹下的文件列表
- * @author go_developer@163.com
- */
+// DirFile 获取文件夹下的文件列表
+//
+// Author : go_developer@163.com<张德满>
 type DirFile struct {
 	FullFilePath string    //文件的全路径
 	FileType     string    //文件类型
@@ -25,19 +27,17 @@ type DirFile struct {
 	FileList     []DirFile //当文件为目录，递归查询目录下的文件
 }
 
-/**
- * 文件操作助手
- * @author go_developer@163.com
- */
+// fileUtil 文件操作助手
+//
+// Author : go_developer@163.com<张德满>
 type fileUtil struct {
 }
 
-/**
- * 获取文件信息， 此方法也可判断文件是否存在
- * @param string filePath 文件路径
- * @return *os.FileInfo 文件的信息
- * @return error 获取文件信息是的异常信息
- */
+// GetFileInfo 获取文件信息， 此方法也可判断文件是否存在
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/06/26 01:13:34
 func (f *fileUtil) GetFileInfo(filePath string) (os.FileInfo, error) {
 	var (
 		err      error
@@ -49,12 +49,11 @@ func (f *fileUtil) GetFileInfo(filePath string) (os.FileInfo, error) {
 	return fileInfo, nil
 }
 
-/**
- * 获取一个文件路径是否为目录
- * @param string filePath 文件路径
- * @return 是否是目录
- * @return error 判断是否为目录的异常信息
- */
+// IsDir 获取一个文件路径是否为目录
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/06/26 01:14:38
 func (f *fileUtil) IsDir(filePath string) (bool, error) {
 	fileInfo, err := f.GetFileInfo(filePath)
 	if nil != err {
@@ -63,14 +62,13 @@ func (f *fileUtil) IsDir(filePath string) (bool, error) {
 	return fileInfo.IsDir(), nil
 }
 
-/**
- * 递归获取目录下文件,因为是递归实现,请慎重评估depth深度
- * @param string dirPath 要查询的目录
- * @param int depth 递归查询的目录深度
- * @return []DirFile 文件的列表
- * @return error 查询过程中的异常信息,两种场景: 1. 目录不存在 2. 传进来的路径不是一个目录 3. 路径为空
- * @author go_developer@163.com
- */
+// GetDirFileList 递归获取目录下文件,因为是递归实现,请慎重评估depth深度
+//
+// 询过程中的异常信息,两种场景: 1. 目录不存在 2. 传进来的路径不是一个目录 3. 路径为空
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/06/26 01:15:13
 func (f *fileUtil) GetDirFileList(dirPath string, depth uint) ([]DirFile, error) {
 	if depth == 0 {
 		return make([]DirFile, 0), nil
@@ -128,13 +126,11 @@ func (f *fileUtil) GetDirFileList(dirPath string, depth uint) ([]DirFile, error)
 	return dirFileList, nil
 }
 
-/**
- * 读取文件的内容
- * @param string filePath 文件路径
- * @return []byte 文件内容
- * @return error 读取文件的错误信息
- * @author go_developer@163.com
- */
+// ReadFile 读取文件的内容
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/06/26 01:15:51
 func (f *fileUtil) ReadFile(filePath string) ([]byte, error) {
 	var (
 		err error

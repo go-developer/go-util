@@ -1,10 +1,22 @@
+// Package util ...
+//
+// 在处理一些参数的时候，可能需要将参数转换为各种类型，这里实现一个通用的转换函数，实现各种类型之间的相互转换。
+//
+// 当然，如果源数据格式和目标数据类型不一致，是会返回错误的。例如将字符串“一二三”转换为数值类型则会报错，而将字符串“123”转换为数值类型则OK。
+//
+//这 段代码实际抄自go自带的“database/sql”库，只是源代码作为内部函数无法在外面调用，可以单独把需要的功能拎出来使用：
+//
+// 代码中有一个Scaner接口，可以自行实现，然后通过"convertAssign()"函数，作为dst参数传入。
+//
+// File : type.go
+//
+// Decs :
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/06/26 01:40:29
 package util
-/**
- * 在处理一些参数的时候，可能需要将参数转换为各种类型，这里实现一个通用的转换函数，实现各种类型之间的相互转换。
- * 当然，如果源数据格式和目标数据类型不一致，是会返回错误的。例如将字符串“一二三”转换为数值类型则会报错，而将字符串“123”转换为数值类型则OK。
- * 这段代码实际抄自go自带的“database/sql”库，只是源代码作为内部函数无法在外面调用，可以单独把需要的功能拎出来使用：
- * 代码中有一个Scaner接口，可以自行实现，然后通过"convertAssign()"函数，作为dst参数传入。
- */
+
 import (
 	"errors"
 	"fmt"
@@ -20,11 +32,13 @@ type RawBytes []byte
 
 var errNilPtr = errors.New("destination pointer is nil") // embedded in descriptive error
 
-/**
- * 将src的值复制到dest当中
- * 如果复制异常，将会返回错误信息
- * dest 应该是一个指针地址, eg: 如果希望 src 转换为 int, 那么 dest 应为 *int
- */
+// ConvertAssign 将src的值复制到dest当中, 如果复制异常，将会返回错误信息
+//
+// dest 应该是一个指针地址, eg: 如果希望 src 转换为 int, 那么 dest 应为 *int
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/06/26 01:43:00
 func ConvertAssign(dest, src interface{}) error {
 	// 以下为基础的数据类型，不需要反射处理
 	switch s := src.(type) {
@@ -320,6 +334,7 @@ type Value interface{}
 
 type boolType struct{}
 
+// Bool ...
 var Bool boolType
 
 func (boolType) String() string { return "Bool" }
@@ -360,6 +375,7 @@ func (boolType) ConvertValue(src interface{}) (Value, error) {
 	return nil, fmt.Errorf("sql/driver: couldn't convert %v (%T) into type bool", src, src)
 }
 
+// Scanner ...
 type Scanner interface {
 	// Scan assigns a value from a database driver.
 	//

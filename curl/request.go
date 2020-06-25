@@ -1,9 +1,12 @@
-/**
- * golang版本的curl请求库
- * Request构造类，用于设置请求参数，发起http请求
- * @author go_developer@163.com<张德满>
- */
-
+// Package curl ...
+//
+// File : request.go
+//
+// Decs :  Request构造类，用于设置请求参数，发起http请求
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/06/26 00:46:43
 package curl
 
 import (
@@ -17,16 +20,15 @@ import (
 	"time"
 )
 
-/**
- * http 请求类构造
- * @author go_developer@163.com
- */
+// Request 请求类构造
+//
+// Author : go_developer@163.com<张德满>
 type Request struct {
 	cli             *http.Client
 	req             *http.Request
 	Raw             *http.Request
 	Method          string
-	Url             string
+	URL             string
 	dialTimeout     time.Duration
 	responseTimeOut time.Duration
 	Headers         map[string]string
@@ -35,7 +37,9 @@ type Request struct {
 	PostData        map[string]interface{}
 }
 
-// 创建一个Request实例
+// NewRequest 创建一个Request实例
+//
+// Author : go_developer@163.com<张德满>
 func NewRequest() *Request {
 	r := &Request{}
 	r.dialTimeout = 5
@@ -43,37 +47,41 @@ func NewRequest() *Request {
 	return r
 }
 
-/**
- * 设置请求方法
- * @author go_developer@163.com<张德满>
- */
+// SetMethod 设置请求方法
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/06/26 00:53:31
 func (req *Request) SetMethod(method string) *Request {
 	req.Method = method
 	return req
 }
 
-/**
- * 设置请求的地址
- * @author go_developer@163.com<张德满>
- */
-func (req *Request) SetUrl(url string) *Request {
-	req.Url = url
+// SetURL 设置请求的地址
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/06/26 00:54:02
+func (req *Request) SetURL(url string) *Request {
+	req.URL = url
 	return req
 }
 
-/**
- * 设置请求头
- * @author go_developer@163.com<张德满>
- */
+// SetHeaders 设置请求头
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/06/26 00:54:41
 func (req *Request) SetHeaders(headers map[string]string) *Request {
 	req.Headers = headers
 	return req
 }
 
-/**
- * 将用户自定义请求头添加到http.Request实例上
- * @author go_developer@163.com<张德满>
- */
+// setHeaders 将用户自定义请求头添加到http.Request实例上
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/06/26 00:55:10
 func (req *Request) setHeaders() {
 	for k, v := range req.Headers {
 		req.req.Header.Set(k, v)
@@ -81,19 +89,21 @@ func (req *Request) setHeaders() {
 	req.req.Header.Set("CURL-CLIENT", "CURL-CLIENT-GO-TOOL-CURL")
 }
 
-/**
- * 设置请求cookies
- * @author go_developer@163.com<张德满>
- */
+// SetCookies 设置请求cookies
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/06/26 00:55:54
 func (req *Request) SetCookies(cookies map[string]string) *Request {
 	req.Cookies = cookies
 	return req
 }
 
-/**
- * 将用户自定义cookies添加到http.Request实例上
- * @author go_developer@163.com<张德满>
- */
+// setCookies 将用户自定义cookies添加到http.Request实例上
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/06/26 00:56:14
 func (req *Request) setCookies() {
 	for k, v := range req.Cookies {
 		req.req.AddCookie(&http.Cookie{
@@ -103,19 +113,21 @@ func (req *Request) setCookies() {
 	}
 }
 
-/**
- * 设置url查询参数
- * @author go_developer@163.com<张德满>
- */
+// SetQueries 设置url查询参数
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/06/26 00:56:42
 func (req *Request) SetQueries(queries map[string]string) *Request {
 	req.Queries = queries
 	return req
 }
 
-/**
- * 将用户自定义url查询参数添加到http.Request上
- * @author go_developer@163.com<张德满>
- */
+// setQueries 将用户自定义url查询参数添加到http.Request上
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/06/26 00:57:00
 func (req *Request) setQueries() {
 	q := req.req.URL.Query()
 	for k, v := range req.Queries {
@@ -124,65 +136,93 @@ func (req *Request) setQueries() {
 	req.req.URL.RawQuery = q.Encode()
 }
 
-/**
- * 设置post请求的提交数据
- * @author go_developer@163.com<张德满>
- */
+// SetPostData 设置post请求的提交数据
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/06/26 00:57:48
 func (req *Request) SetPostData(postData map[string]interface{}) *Request {
 	req.PostData = postData
 	return req
 }
 
-// 发起get请求
+// Get 发起get请求
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/06/26 00:58:17
 func (req *Request) Get() (*Response, error) {
-	return req.Send(req.Url, http.MethodGet)
+	return req.Send(req.URL, http.MethodGet)
 }
 
-// 发起Delete请求
+// Delete 发起Delete请求
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/06/26 01:01:04
 func (req *Request) Delete() (*Response, error) {
-	return req.Send(req.Url, http.MethodDelete)
+	return req.Send(req.URL, http.MethodDelete)
 }
 
-// 发起Delete请求
+// Put 发起Delete请求
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/06/26 01:01:28
 func (req *Request) Put() (*Response, error) {
 	return req.Send(req.Url, http.MethodPut)
 }
 
-// 发起post请求
+// Post 发起post请求
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/06/26 01:01:41
 func (req *Request) Post() (*Response, error) {
-	return req.Send(req.Url, http.MethodPost)
+	return req.Send(req.URL, http.MethodPost)
 }
 
-// 发起put请求
+// PUT 发起put请求
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/06/26 01:01:58
 func (req *Request) PUT() (*Response, error) {
-	return req.Send(req.Url, http.MethodPut)
+	return req.Send(req.URL, http.MethodPut)
 }
 
-// 发起patch请求
+// PATCH 发起patch请求
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/06/26 01:02:21
 func (req *Request) PATCH() (*Response, error) {
-	return req.Send(req.Url, http.MethodPatch)
+	return req.Send(req.URL, http.MethodPatch)
 }
 
-/*
- * 设置连接超时时间
- * @author go_developer@163.com<张德满>
- */
+// SetDialTimeOut 设置连接超时时间
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/06/26 01:02:55
 func (req *Request) SetDialTimeOut(TimeOutSecond int) {
 	req.dialTimeout = time.Duration(TimeOutSecond)
 }
 
-/*
- * 设置读取超时时间
- * @author go_developer@163.com<张德满>
- */
+// SetResponseTimeOut 设置读取超时时间
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/06/26 01:03:12
 func (req *Request) SetResponseTimeOut(TimeOutSecond int) {
 	req.responseTimeOut = time.Duration(TimeOutSecond)
 }
 
-/*
- * 发起请求
- * @author go_developer@163.com<张德满>
- */
+// Send 发起请求
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/06/26 01:03:27
 func (req *Request) Send(url string, method string) (*Response, error) {
 	// 检测请求url是否填了
 	if url == "" {
@@ -245,10 +285,11 @@ func (req *Request) Send(url string, method string) (*Response, error) {
 	return response, nil
 }
 
-/**
- * 格式化postData
- * @author go_developer@163.com
- */
+// formatPostData 格式化postData
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/06/26 01:04:29
 func (req *Request) formatPostData() (string, error) {
 	paramStr := ""
 	for key, val := range req.PostData {
@@ -262,10 +303,11 @@ func (req *Request) formatPostData() (string, error) {
 	return paramStr, nil
 }
 
-/**
- * 将任意一个是数据转化为字符串
- * @author go_developer@163.com<张德满>
- */
+// valToString 将任意一个是数据转化为字符串
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/06/26 01:04:51
 func (req *Request) valToString(data interface{}) (string, error) {
 	var val []byte
 	var err error

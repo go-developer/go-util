@@ -1,3 +1,12 @@
+// Package util ...
+//
+// File : string.go
+//
+// Decs : 字符串操作工具集
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/06/26 01:36:23
 package util
 
 import (
@@ -6,27 +15,29 @@ import (
 	"time"
 )
 
+// StringUtil 字符串工具类实例
+//
+// Author : go_developer@163.com<张德满>
 var StringUtil *stringUtil
 
 func init()  {
 	StringUtil = &stringUtil{}
 }
 
-/**
- * 字符串操作工具类
- * @author go_developer@163.com
- */
+// stringUtil 字符串操作工具类
+//
+// Author : go_developer@163.com<张德满>
 type stringUtil struct {
 
 }
 
-/**
- * 生成指定长度的随机字符串
- * @param string source 从哪些字符里选取字符
- * @param uint length 生成的随机字符串长度
- * @return string 生成的随机字符串
- * @author go_developer@163.com
- */
+// GenRandomString 生成指定长度的随机字符串
+//
+// source 不为空时,将以此作为字符池
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/06/26 01:29:41
 func (s *stringUtil) GenRandomString(source string, length uint) string {
 	if length == 0 {
 		return ""
@@ -44,12 +55,11 @@ func (s *stringUtil) GenRandomString(source string, length uint) string {
 	return string(genStrByte)
 }
 
-/**
- * 将按照split分割的字符串转为小驼峰
- * @param string str 原字符串
- * @param string split 字符串的分隔符
- * @author go_developere@163.com
- */
+// 将按照split分割的字符串转为小驼峰
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/06/26 01:30:55
 func (s *stringUtil) ToHump(str string, split string) string {
 	strArr := strings.Split(str, split)
 	out := strArr[0]
@@ -59,12 +69,11 @@ func (s *stringUtil) ToHump(str string, split string) string {
 	return out
 }
 
-/**
- * 实现首字母大写
- * @param string str 要处理的字符串
- * @return string 首字母大写后的字符串
- * @author zhangdeman001@ke.com
- */
+// 实现首字母大写
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/06/26 01:31:09
 func (s *stringUtil) Capitalize(str string) string {
 	if len(str) == 0 {
 		return str
