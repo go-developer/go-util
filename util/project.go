@@ -11,8 +11,6 @@ package util
 
 import (
 	"os"
-	"os/exec"
-	"strings"
 )
 
 // ProjectUtil 项目相关工具集
@@ -29,11 +27,5 @@ type projectUtil struct {
 //
 // Date : 2020/06/26 20:53:06
 func (pu *projectUtil) GetCurrentPath() (string, error) {
-	s, err := exec.LookPath(os.Args[0])
-	if nil != err {
-		return "", err
-	}
-	i := strings.LastIndex(s, "\\")
-	path := string(s[0 : i+1])
-	return path, nil
+	return os.Getwd()
 }
