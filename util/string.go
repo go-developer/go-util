@@ -82,3 +82,14 @@ func (s *stringUtil) Capitalize(str string) string {
 	return strings.ToUpper(strArr[0]) + strings.Join(strArr[1:], "")
 }
 
+// MD5 md5加密
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/07/05 21:01:51
+func (s *stringUtil) MD5(text string) string {
+	ctx := md5.New()
+	ctx.Write([]byte(text))
+	return hex.EncodeToString(ctx.Sum(nil))
+) 
+
