@@ -13,6 +13,7 @@ import (
 	"errors"
 	"net"
 	"os"
+	"time"
 )
 
 // ProjectUtil 项目相关工具集
@@ -57,4 +58,14 @@ func (pu *projectUtil) GetServerIP() (string, error) {
 	}
 
 	return "", errors.New("获取服务器IP失败")
+}
+
+// GetTraceID 生成traceID, 规则 时间 + serverIP + 随机字符串
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/07/19 00:57:14
+func (pu *projectUtil) GetTraceID() string {
+	serverIP, _ := pu.GetServerIP()
+	return time.Now().Format("20060102150405") + "-" + serverIP + "-" + StringUtil.MD5(StringUtil.GenRandomString("", 32))
 }
