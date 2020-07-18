@@ -10,6 +10,8 @@
 package util
 
 import (
+	"crypto/md5"
+	"encoding/hex"
 	"math/rand"
 	"strings"
 	"time"
@@ -20,7 +22,7 @@ import (
 // Author : go_developer@163.com<张德满>
 var StringUtil *stringUtil
 
-func init()  {
+func init() {
 	StringUtil = &stringUtil{}
 }
 
@@ -28,7 +30,6 @@ func init()  {
 //
 // Author : go_developer@163.com<张德满>
 type stringUtil struct {
-
 }
 
 // GenRandomString 生成指定长度的随机字符串
@@ -91,5 +92,4 @@ func (s *stringUtil) MD5(text string) string {
 	ctx := md5.New()
 	ctx.Write([]byte(text))
 	return hex.EncodeToString(ctx.Sum(nil))
-) 
-
+}

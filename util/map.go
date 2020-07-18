@@ -11,7 +11,7 @@ import (
 // Author : go_developer@163.com<张德满>
 var MapUtil *mapUtil
 
-func init()  {
+func init() {
 	MapUtil = &mapUtil{}
 }
 
@@ -19,7 +19,6 @@ func init()  {
 //
 // Author : go_developer@163.com<张德满>
 type mapUtil struct {
-
 }
 
 // ToStruct map转为结构体的方法
@@ -53,11 +52,11 @@ func (m *mapUtil) SafeGetValue(data map[string]interface{}, key string, value in
 		return errors.New("map为nil")
 	}
 	var (
-		val interface{}
+		val   interface{}
 		exist bool
 	)
 	if val, exist = data[key]; !exist {
-		return fmt.Errorf("key : %s 不存在")
+		return fmt.Errorf("key : %s 不存在", key)
 	}
 
 	return ConvertAssign(value, val)

@@ -18,11 +18,11 @@ import (
 // Author : go_developer@163.com<张德满>
 var YamlUtil *yamlUtil
 
-func init()  {
+func init() {
 	YamlUtil = &yamlUtil{}
 }
-type yamlUtil struct {
 
+type yamlUtil struct {
 }
 
 // ParseYamlFile 解析一个yml文件
@@ -34,7 +34,7 @@ type yamlUtil struct {
 // Date : 2020/06/26 01:38:54
 func (y *yamlUtil) ParseYamlFile(yamlFilePath string, parseResult interface{}) error {
 	var (
-		err error
+		err     error
 		ymlByte []byte
 	)
 	if ymlByte, err = FileUtil.ReadFile(yamlFilePath); nil != err {

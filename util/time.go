@@ -56,8 +56,8 @@ func (t *timeUtil) GetUnixTime(formatTime string) (unixTime int64, err error) {
 
 	var (
 		timeLayout = "2006-01-02 15:04:05" //转化所需模板
-		loc        *time.Location //时区
-		timeInfo   time.Time      //时间信息
+		loc        *time.Location          //时区
+		timeInfo   time.Time               //时间信息
 	)
 
 	//获取时区失败
@@ -69,4 +69,15 @@ func (t *timeUtil) GetUnixTime(formatTime string) (unixTime int64, err error) {
 	}
 	unixTime = timeInfo.Unix()
 	return unixTime, nil
+}
+
+// GetFormatCurrentNanoTime 获取格式化的纳秒时间戳
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/07/19 00:22:39
+func (t *timeUtil) GetFormatCurrentNanoTime(nano int64) string {
+	second := nano / 1e9
+	leave := nano - second*1e9
+	return time.Unix(second, leave).String()
 }
