@@ -15,6 +15,8 @@ import (
 	"net"
 	"os"
 	"time"
+
+	"github.com/go-developer/snowflake"
 )
 
 // ProjectUtil 项目相关工具集
@@ -93,4 +95,28 @@ func (pu *projectUtil) Long2IP(ipLong uint64) string {
 	ipByte := make([]byte, 4)
 	binary.BigEndian.PutUint64(ipByte, ipLong)
 	return net.IP(ipByte).String()
+}
+
+// GenerateID 生成ID
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/07/25 22:00:50
+func (pu *projectUtil) GenerateID(ipLong uint64) uint64 {
+	var (
+		ip  string
+		err error
+		id  int64
+		iw  *snowflake.IDWorker
+	)
+	if ip, err = pu.GetServerIP(); nil != err {
+		return 0
+	}
+	if iw, err = snowflake.NewIDWorker(int64(pu.IP2Long(ip))); nil != err {
+		return 0
+	}
+	if id, err = iw.NextID(); nil != err {
+		return 0
+	}
+	return uint64(id)
 }
