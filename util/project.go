@@ -10,6 +10,7 @@
 package util
 
 import (
+	"encoding/binary"
 	"errors"
 	"net"
 	"os"
@@ -68,4 +69,28 @@ func (pu *projectUtil) GetServerIP() (string, error) {
 func (pu *projectUtil) GetTraceID() string {
 	serverIP, _ := pu.GetServerIP()
 	return time.Now().Format("20060102150405") + "-" + serverIP + "-" + StringUtil.MD5(StringUtil.GenRandomString("", 32))
+}
+
+// IP2Long ...
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/07/25 21:35:43
+func (pu *projectUtil) IP2Long(ipStr string) uint64 {
+	ip := net.ParseIP(ipStr)
+	if ip == nil {
+		return 0
+	}
+	return binary.BigEndian.Uint64(ip.To4())
+}
+
+// Long2IP ...
+//
+// Author : go_developer@163.com<张德满>
+//
+// Date : 2020/07/25 21:36:43
+func (pu *projectUtil) Long2IP(ipLong uint64) string {
+	ipByte := make([]byte, 4)
+	binary.BigEndian.PutUint64(ipByte, ipLong)
+	return net.IP(ipByte).String()
 }
