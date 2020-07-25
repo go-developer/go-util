@@ -102,7 +102,7 @@ func (pu *projectUtil) Long2IP(ipLong uint64) string {
 // Author : go_developer@163.com<张德满>
 //
 // Date : 2020/07/25 22:00:50
-func (pu *projectUtil) GenerateID(ipLong uint64) uint64 {
+func (pu *projectUtil) GenerateID() uint64 {
 	var (
 		ip  string
 		err error
